@@ -7,8 +7,7 @@ const state = reactive({
   price: "",
   priceFormatted: "",
 });
-onMounted(() => {
-  console.log("hi");
+function refresh(params: type) {
   axios
     .get("https://data-api.binance.vision/api/v3/ticker/price?symbol=BTCUSDT")
     .then((resp) => {
@@ -16,12 +15,21 @@ onMounted(() => {
       state.price = price;
       state.priceFormatted = BigNumber(price).toFormat(2);
     });
+}
+onMounted(() => {
+  console.log("hi");
+  refresh();
 });
 </script>
 
 <template>
-  <div class="flex w-full h-screen items-center justify-center">
-    {{ state.priceFormatted }}
+  <div class="flex w-full h-screen items-center justify-center gap-[1rem] flex-col">
+    <div>
+      {{ state.priceFormatted }}
+    </div>
+    <div>
+      <button class="border p-2 rounded-xl" @click="refresh">refresh</button>
+    </div>
   </div>
 </template>
 
