@@ -7,7 +7,7 @@ const state = reactive({
   price: "",
   priceFormatted: "",
 });
-function refresh(params: type) {
+function refresh() {
   axios
     .get("https://data-api.binance.vision/api/v3/ticker/price?symbol=BTCUSDT")
     .then((resp) => {
